@@ -1,4 +1,3 @@
-import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -20,6 +19,7 @@ import {
 } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
+import Logo from "@/assets/icons/Logo";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -41,7 +41,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b">
+    <header className="border-b-2 border-gray-300 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export default function Navbar() {
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                className="group size-8 md:hidden"
+                className="group size-8 md:hidden cursor-pointer"
                 variant="ghost"
                 size="icon"
               >
@@ -96,9 +96,7 @@ export default function Navbar() {
           </Popover>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Logo />
-            </a>
+            <Logo/>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
@@ -137,13 +135,16 @@ export default function Navbar() {
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="text-sm"
+              className="bg-yellow-400 text-black font-bold p-4 rounded-full text-lg shadow-xl hover:bg-yellow-300 transition cursor-pointer"
             >
               Logout
             </Button>
           )}
           {!data?.data?.email && (
-            <Button asChild className="text-sm">
+            <Button
+              asChild
+              className="bg-yellow-400 text-black font-bold p-4 rounded-full text-lg shadow-xl hover:bg-yellow-300 transition cursor-pointer"
+            >
               <Link to="/login">Login</Link>
             </Button>
           )}

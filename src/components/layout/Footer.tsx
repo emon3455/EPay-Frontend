@@ -2,12 +2,12 @@ import Logo from "@/assets/icons/Logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t">
+    <footer className="border-t-2 border-gray-300  bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
       <div className="mx-auto container space-y-8 px-4 py-16 lg:space-y-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
-            <div className="flex items-center gap-3">
-              <Logo />
+            <div className="flex items-center gap-3 cursor-pointer">
+              <Logo/>
             </div>
 
             <p className="mt-4 max-w-xs text-muted-foreground">
