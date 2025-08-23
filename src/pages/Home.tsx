@@ -4,12 +4,10 @@ import { useNavigate } from "react-router"
 export default function Home() {
     const navigate = useNavigate()
   return (
-    <div className="relative h-screen flex items-center justify-center  bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
-      {/* Overlay only for dark mode */}
-      <div className="absolute inset-0 dark:bg-black/50"></div>
+    <div className="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-6">
+      <div className="text-center p-10">
         <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg text-foreground">
           Welcome to <span className="text-yellow-500 dark:text-yellow-400">E-Pay</span>
         </h1>
@@ -45,7 +43,7 @@ export default function Home() {
 
         {/* CTA Button */}
         <div className="mt-10">
-          <Button className="bg-yellow-400 text-black font-bold p-8 rounded-full text-lg shadow-xl hover:bg-yellow-300 transition cursor-pointer" onClick={() => {navigate('/register')}}>
+          <Button className="bg-yellow-400 text-black font-bold p-4 rounded-full text-lg shadow-xl hover:bg-yellow-300 transition cursor-pointer" onClick={() => {navigate('/register')}}>
             Get Started with E-Pay
           </Button>
         </div>

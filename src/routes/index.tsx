@@ -13,6 +13,9 @@ import { role } from "@/constants/role";
 import { TRole } from "@/types";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
+import Features from "@/pages/Features";
+import Faq from "@/pages/Faq";
+import Contact from "@/pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +25,22 @@ export const router = createBrowserRouter([
       {
         Component: Home,
         path: "/",
+      },
+      {
+        Component: About,
+        path: "/about",
+      },
+      {
+        Component: Features,
+        path: "/features",
+      },
+      {
+        Component: Faq,
+        path: "/faq",
+      },
+      {
+        Component: Contact,
+        path: "/contact",
       },
     ],
   },
@@ -56,9 +75,5 @@ export const router = createBrowserRouter([
   {
     Component: Unauthorized,
     path: "/unauthorized",
-  },
-  {
-    Component: About,
-    path: "/about",
   },
 ]);
