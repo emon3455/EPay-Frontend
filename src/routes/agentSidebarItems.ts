@@ -1,10 +1,10 @@
-import AddTour from "@/pages/Admin/AddTour";
-import AddTourType from "@/pages/Admin/AddTourType";
-// import Analytics from "@/pages/Admin/Analytics";
 import { ISidebarItem } from "@/types";
-import { lazy } from "react";
+import AgentDashboard from "@/pages/Agent/AgentDashboard";
+import AgentAddMoney from "@/pages/Agent/AgentAddMoney";
+import AgentWithdraw from "@/pages/Agent/AgentWithdraw";
+import AgentTransaction from "@/pages/Agent/AgentTransaction";
+import AgentComission from "@/pages/Agent/AgentComission";
 
-const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
 
 export const agentSidebarItems: ISidebarItem[] = [
   {
@@ -12,28 +12,28 @@ export const agentSidebarItems: ISidebarItem[] = [
     items: [
       {
         title: "Analytics",
-        url: "/admin/analytics",
-        component: Analytics,
-      },
-    ],
-  },
-  {
-    title: "Tour Management",
-    items: [
-      {
-        title: "Add Tour Type",
-        url: "/admin/add-tour-type",
-        component: AddTourType,
+        url: "/agent/analytics",
+        component: AgentDashboard,
       },
       {
-        title: "Add Tour",
-        url: "/admin/add-tour",
-        component: AddTour,
+        title: "Add Money",
+        url: "/agent/add-money",
+        component: AgentAddMoney,
       },
       {
-        title: "Habi Jabi",
-        url: "/admin/habijabi",
-        component: AddTour,
+        title: "Withdraw Money",
+        url: "/agent/withdraw-money",
+        component: AgentWithdraw,
+      },
+      {
+        title: "My Transactions",
+        url: "/agent/my-transactions",
+        component: AgentTransaction,
+      },
+      {
+        title: "My Comission",
+        url: "/agent/my-comission",
+        component: AgentComission,
       },
     ],
   },

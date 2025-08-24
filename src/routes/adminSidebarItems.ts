@@ -1,10 +1,10 @@
-import AddTour from "@/pages/Admin/AddTour";
-import AddTourType from "@/pages/Admin/AddTourType";
-// import Analytics from "@/pages/Admin/Analytics";
+import Dashboard from "@/pages/Admin/Dashboard";
+import ManageAgent from "@/pages/Admin/ManageAgent";
+import ManageSystemConfig from "@/pages/Admin/ManageSystemConfig";
+import ManageUser from "@/pages/Admin/ManageUser";
+import ViewTransaction from "@/pages/Admin/ViewTransaction";
 import { ISidebarItem } from "@/types";
-import { lazy } from "react";
 
-const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
 
 export const adminSidebarItems: ISidebarItem[] = [
   {
@@ -13,27 +13,27 @@ export const adminSidebarItems: ISidebarItem[] = [
       {
         title: "Analytics",
         url: "/admin/analytics",
-        component: Analytics,
-      },
-    ],
-  },
-  {
-    title: "Tour Management",
-    items: [
-      {
-        title: "Add Tour Type",
-        url: "/admin/add-tour-type",
-        component: AddTourType,
+        component: Dashboard,
       },
       {
-        title: "Add Tour",
-        url: "/admin/add-tour",
-        component: AddTour,
+        title: "Manage User",
+        url: "/admin/manage-user",
+        component: ManageUser,
       },
       {
-        title: "Habi Jabi",
-        url: "/admin/habijabi",
-        component: AddTour,
+        title: "Manage Agent",
+        url: "/admin/manage-agent",
+        component: ManageAgent,
+      },
+      {
+        title: "View Transaction",
+        url: "/admin/view-transaction",
+        component: ViewTransaction,
+      },
+      {
+        title: "Manage System Configuration",
+        url: "/admin/manage-system-config",
+        component: ManageSystemConfig,
       },
     ],
   },
