@@ -17,7 +17,7 @@ export default function Contact() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <main className="min-h-screen ">
       <section className="container mx-auto px-6 py-16 max-w-2xl">
         <h1 className="text-4xl font-bold text-foreground text-center">Get in Touch</h1>
         <p className="mt-3 text-muted-foreground text-center">We’ll reply within 1 business day.</p>

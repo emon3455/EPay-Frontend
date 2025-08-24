@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
@@ -17,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
-import { Mail, User, CheckCircle2, Chrome, Loader2, LogIn } from "lucide-react";
+import { Mail, User, CheckCircle2, Chrome, Loader2, LogIn, Shield } from "lucide-react";
 
 const registerSchema = z
   .object({
@@ -28,6 +29,7 @@ const registerSchema = z
     email: z.string().email({ message: "Enter a valid email address" }),
     password: z.string().min(8, { message: "Minimum 8 characters" }),
     confirmPassword: z.string().min(8, { message: "Minimum 8 characters" }),
+    role: z.enum(["USER", "AGENT"], { message: "Please select a role" }),
     accept: z.literal(true, {
       message: "You must accept Terms & Privacy",
     }),
@@ -48,6 +50,7 @@ export function RegisterForm() {
       email: "",
       password: "",
       confirmPassword: "",
+      role: "USER",
       accept: true,
     },
   });
@@ -57,6 +60,7 @@ export function RegisterForm() {
       name: data.name,
       email: data.email,
       password: data.password,
+      role: data.role,
     };
     try {
       await register(userInfo).unwrap();
@@ -176,6 +180,39 @@ export function RegisterForm() {
                     className="focus-visible:border-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400"
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Role */}
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Role</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="focus-visible:border-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400 w-full">logi
+                      <span className="absolute left-3">
+                        <Shield className="h-4 w-4 text-muted-foreground" />
+                      </span>
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="USER">USER</SelectItem>
+                      <SelectItem value="AGENT">AGENT</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormDescription className="text-xs">
+                  Choose <span className="font-medium">USER</span> for standard access or{" "}
+                  <span className="font-medium">AGENT</span> for enhanced tools.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

@@ -74,7 +74,7 @@ function FeatureGrid({
 
 export default function Features() {
   return (
-    <main className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <main className="min-h-screen ">
       <section className="container mx-auto px-6 py-16">
         <div className="text-center">
           <Badge variant="secondary">Features</Badge>

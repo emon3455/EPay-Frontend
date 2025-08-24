@@ -5,7 +5,7 @@ import { LoginForm } from "@/components/modules/Authentication/LoginForm";
 
 export default function Login() {
   return (
-    <div className="min-h-svh grid lg:grid-cols-2 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <div className="min-h-svh grid lg:grid-cols-2 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-slate-900 dark:to-black">
       {/* Left: Form side */}
       <div className="relative flex flex-col p-6 md:p-10">
         {/* Top logo */}

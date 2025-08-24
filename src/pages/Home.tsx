@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"
 export default function Home() {
     const navigate = useNavigate()
   return (
-    <div className="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <div className="">
 
       {/* Main Content */}
       <div className="text-center p-10">

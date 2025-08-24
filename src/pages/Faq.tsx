@@ -33,7 +33,7 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <main className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <main className="min-h-screen p-10">
       <section className="container mx-auto px-6 py-16 max-w-3xl">
         <h1 className="text-4xl font-bold text-foreground text-center">
           Frequently Asked Questions

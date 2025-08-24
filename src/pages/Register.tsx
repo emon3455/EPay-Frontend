@@ -5,7 +5,7 @@ import { RegisterForm } from "@/components/modules/Authentication/RegisterForm";
 
 export default function Register() {
   return (
-    <div className="min-h-svh  grid lg:grid-cols-2 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <div className="min-h-svh  grid lg:grid-cols-2 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-slate-900 dark:to-black">
       {/* Visual side */}
       <div className="relative hidden lg:block">
         <img

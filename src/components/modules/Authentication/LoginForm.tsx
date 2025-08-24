@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Mail, Lock, Eye, EyeOff, ShieldCheck, Loader2, LogIn, Chrome } from "lucide-react";
 import * as React from "react";
+import { role } from "@/constants/role";
 
 export function LoginForm({
   className,
@@ -36,9 +37,23 @@ export function LoginForm({
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
-      if (res.success) {
+      
+      if (res?.success) {
+        if(res?.data?.user?.role===role?.superAdmin){
+          navigate("/admin/analytics");
+        }
+        else if (res?.data?.user?.role === role?.admin) {
+          navigate("/admin/analytics");
+        }
+        else if (res?.data?.user?.role === role?.user) {
+          navigate("/user/dashboard");
+        }
+        else if(res?.data?.user?.role === role?.agent){
+          navigate("/agent/analytics"); 
+        }else{
+          navigate("/");
+        }
         toast.success("Logged in successfully");
-        navigate("/");
       }
     } catch (err: any) {
       console.error(err);
