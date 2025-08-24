@@ -18,6 +18,7 @@ import Faq from "@/pages/Faq";
 import Contact from "@/pages/Contact";
 import ForgotPasswordPage from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
+import { agentSidebarItems } from "./agentSidebarItems";
 
 export const router = createBrowserRouter([
   {
@@ -55,11 +56,27 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    Component: withAuth(DashboardLayout, role.admin as TRole),
+    path: "/admin",
+    children: [
+      { index: true, element: <Navigate to="/admin/analytics" /> },
+      ...generateRoutes(adminSidebarItems),
+    ],
+  },
+  {
     Component: withAuth(DashboardLayout, role.user as TRole),
     path: "/user",
     children: [
       { index: true, element: <Navigate to="/user/bookings" /> },
       ...generateRoutes(userSidebarItems),
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.agent as TRole),
+    path: "/agent",
+    children: [
+      { index: true, element: <Navigate to="/user/bookings" /> },
+      ...generateRoutes(agentSidebarItems),
     ],
   },
   {

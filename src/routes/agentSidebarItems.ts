@@ -6,9 +6,9 @@ import { lazy } from "react";
 
 const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
 
-export const adminSidebarItems: ISidebarItem[] = [
+export const agentSidebarItems: ISidebarItem[] = [
   {
-    title: "Admin Dashboard",
+    title: "Agent Dashboard",
     items: [
       {
         title: "Analytics",
