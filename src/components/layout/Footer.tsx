@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-black dark:via-emerald-900 dark:to-black">
+    <footer className="border-t border-gray-200 ">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-6 text-sm text-gray-500 dark:text-gray-400">
         
         {/* Left: Logo */}
@@ -21,7 +21,7 @@ export default function Footer() {
         </nav>
 
         {/* Right: Copyright */}
-        <p className="mt-4 md:mt-0 text-xs">&copy; {new Date().getFullYear()} Company. All rights reserved.</p>
+        <p className="mt-4 md:mt-0 text-xs">&copy; {new Date().getFullYear()} E-Pay. All rights reserved.</p>
       </div>
     </footer>
   );
