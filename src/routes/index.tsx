@@ -16,6 +16,8 @@ import About from "@/pages/About";
 import Features from "@/pages/Features";
 import Faq from "@/pages/Faq";
 import Contact from "@/pages/Contact";
+import ForgotPasswordPage from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -75,5 +77,13 @@ export const router = createBrowserRouter([
   {
     Component: Unauthorized,
     path: "/unauthorized",
+  },
+  {
+    Component: ForgotPasswordPage,
+    path: "/forgot-password",
+  },
+  {
+    Component: ResetPassword,
+    path: "/reset-password",
   },
 ]);
