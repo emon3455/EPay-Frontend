@@ -28,10 +28,10 @@ const navigationLinks = [
   { href: "/features", label: "Features", role: "PUBLIC" as const },
   { href: "/faq", label: "Faq", role: "PUBLIC" as const },
   { href: "/contact", label: "Contact", role: "PUBLIC" as const },
-  { href: "/admin", label: "Dashboard", role: role.superAdmin as const },
-  { href: "/admin", label: "Dashboard", role: role.admin as const },
-  { href: "/agent", label: "Dashboard", role: role.agent as const },
-  { href: "/user", label: "Dashboard", role: role.user as const },
+  { href: "/admin", label: "Dashboard", role: role.superAdmin },
+  { href: "/admin", label: "Dashboard", role: role.admin },
+  { href: "/agent", label: "Dashboard", role: role.agent },
+  { href: "/user", label: "Dashboard", role: role.user },
 ];
 
 export default function Navbar() {
