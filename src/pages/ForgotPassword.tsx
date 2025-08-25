@@ -2,7 +2,7 @@
 import * as React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ShieldCheck, Mail, Loader2, ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

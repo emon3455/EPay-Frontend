@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import Logo from "@/assets/icons/Logo";

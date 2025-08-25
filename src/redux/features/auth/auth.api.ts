@@ -6,12 +6,15 @@ type ResetPasswordPayload = { id: string; token: string; password: string };
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    login: builder.mutation<IResponse<{ user: any }>, { email: string; password: string }>({
       query: (userInfo) => ({
         url: "/auth/login",
         method: "POST",
         data: userInfo,
       }),
+      // So any components using userInfo refetch next time they're mounted
+      invalidatesTags: ["USER"],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -41,7 +44,9 @@ export const authApi = baseApi.injectEndpoints({
         data: userInfo,
       }),
     }),
-    userInfo: builder.query({
+    // <-- /me endpoint (cookie must be sent automatically)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    userInfo: builder.query<IResponse<any>, void>({
       query: () => ({
         url: "/user/me",
         method: "GET",
@@ -74,4 +79,5 @@ export const {
   useLogoutMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useLazyUserInfoQuery,
 } = authApi;

@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Dot, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import z from "zod";
 

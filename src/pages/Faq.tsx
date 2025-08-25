@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {

@@ -1,5 +1,5 @@
 import RegisterImage from "@/assets/images/register.png";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Logo from "@/assets/icons/Logo";
 import { RegisterForm } from "@/components/modules/Authentication/RegisterForm";
 

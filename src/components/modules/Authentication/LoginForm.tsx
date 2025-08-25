@@ -11,11 +11,20 @@ import {
 import { Input } from "@/components/ui/input";
 import config from "@/config";
 import { cn } from "@/lib/utils";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { useLazyUserInfoQuery, useLoginMutation } from "@/redux/features/auth/auth.api";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Mail, Lock, Eye, EyeOff, ShieldCheck, Loader2, LogIn, Chrome } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  Loader2,
+  LogIn,
+  Chrome,
+} from "lucide-react";
 import * as React from "react";
 import { role } from "@/constants/role";
 
@@ -31,35 +40,39 @@ export function LoginForm({
     },
   });
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading: isLoggingIn }] = useLoginMutation();
+  const [getMe, { isFetching: isGettingMe }] = useLazyUserInfoQuery();
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
-      const res = await login(data).unwrap();
-      
-      if (res?.success) {
-        if(res?.data?.user?.role===role?.superAdmin){
-          navigate("/admin/analytics");
-        }
-        else if (res?.data?.user?.role === role?.admin) {
-          navigate("/admin/analytics");
-        }
-        else if (res?.data?.user?.role === role?.user) {
-          navigate("/user/dashboard");
-        }
-        else if(res?.data?.user?.role === role?.agent){
-          navigate("/agent/analytics"); 
-        }else{
-          navigate("/");
-        }
-        toast.success("Logged in successfully");
+      // 1) server sets HttpOnly cookies here
+      await login(values).unwrap();
+      toast.success("Logged in successfully");
+
+      // 2) immediately confirm session & get role
+      const me = await getMe().unwrap(); // { success, data: { _id, role, ... } }
+      const user = me?.data;
+
+      if (!user?._id) {
+        toast.error("Could not fetch your session. Please try again.");
+        return;
+      }
+
+      // 3) navigate by role
+      if (user.role === role.superAdmin || user.role === role.admin) {
+        navigate("/admin/analytics", { replace: true });
+      } else if (user.role === role.agent) {
+        navigate("/agent/analytics", { replace: true });
+      } else {
+        navigate("/user/dashboard", { replace: true });
       }
     } catch (err: any) {
       console.error(err);
       const msg = err?.data?.message || "Login failed. Please try again.";
       toast.error(msg);
-      if (msg === "User is not verified") navigate("/verify", { state: data.email });
+      if (msg === "User is not verified")
+        navigate("/verify", { state: values.email });
     }
   };
 
@@ -116,7 +129,10 @@ export function LoginForm({
           <FormField
             control={form.control}
             name="password"
-            rules={{ required: "Password is required", minLength: { value: 8, message: "Min 8 characters" } }}
+            rules={{
+              required: "Password is required",
+              minLength: { value: 8, message: "Min 8 characters" },
+            }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
@@ -134,11 +150,17 @@ export function LoginForm({
                     />
                     <button
                       type="button"
-                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
                       onClick={() => setShowPassword((s) => !s)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition"
                     >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </FormControl>
@@ -153,16 +175,23 @@ export function LoginForm({
               <input type="checkbox" className="h-4 w-4 rounded border-input" />
               Remember me
             </label>
-            <Link to="/forgot-password" className="text-xs underline underline-offset-4 hover:opacity-80">
+            <Link
+              to="/forgot-password"
+              className="text-xs underline underline-offset-4 hover:opacity-80"
+            >
               Forgot password?
             </Link>
           </div>
 
           {/* Submit */}
-          <Button type="submit" className="w-full bg-yellow-400 text-black hover:bg-yellow-300">
-            {isLoading ? (
+          <Button
+            type="submit"
+            disabled={isLoggingIn || isGettingMe}
+            className="w-full bg-yellow-400 text-black hover:bg-yellow-300"
+          >
+            {isLoggingIn || isGettingMe ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in…
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loging in…
               </>
             ) : (
               <>

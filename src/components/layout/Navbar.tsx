@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggler";
-import { Link } from "react-router"; // if you use react-router-dom, change to: react-router-dom
+import { Link } from "react-router-dom";
 import {
   authApi,
   useLogoutMutation,
