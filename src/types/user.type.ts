@@ -1,4 +1,4 @@
-export type IsActive = "ACTIVE" | "PENDING" | "BLOCKED" | "INACTIVE";
+export type IsActive = "ACTIVE" | "PENDING" | "BLOCKED" | "SUSPENDED";
 export type Role = "USER" | "AGENT" | "ADMIN" | "SUPER_ADMIN";
 
 export interface IWallet {

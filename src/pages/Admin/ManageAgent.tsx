@@ -4,19 +4,37 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import {  Search, ChevronLeft, ChevronRight, ShieldCheck, Ban } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  Ban,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { IsActive, IUser } from "@/types/user.type";
-import { GetAgentsQuery, useApproveRejectAgentMutation, useGetAgentsQuery } from "@/redux/features/agent/agents.api";
+import {
+  GetAgentsQuery,
+  useApproveRejectAgentMutation,
+  useGetAgentsQuery,
+} from "@/redux/features/agent/agents.api";
 
 const statusColor = (s: IsActive) =>
-  s === "ACTIVE" ? "bg-green-100 text-green-700"
-  : s === "PENDING" ? "bg-yellow-100 text-yellow-700"
-  : s === "BLOCKED" ? "bg-red-100 text-red-700"
-  : "bg-gray-100 text-gray-700";
+  s === "ACTIVE"
+    ? "bg-green-100 text-green-700"
+    : s === "PENDING"
+    ? "bg-yellow-100 text-yellow-700"
+    : s === "BLOCKED" || s === "SUSPENDED"
+    ? "bg-red-100 text-red-700"
+    : "bg-gray-100 text-gray-700";
 
 const StatusBadge = ({ value }: { value: IsActive }) => (
-  <span className={cn("px-2 py-0.5 rounded text-xs font-medium", statusColor(value))}>
+  <span
+    className={cn(
+      "px-2 py-0.5 rounded text-xs font-medium",
+      statusColor(value)
+    )}
+  >
     {value}
   </span>
 );
@@ -39,15 +57,24 @@ const ManageAgent = () => {
 
   const debouncedSearch = useDebounced(search);
 
-  const queryArgs: GetAgentsQuery = useMemo(() => ({
-    page, limit, searchTerm: debouncedSearch, isActive,
-  }), [page, limit, debouncedSearch, isActive]);
+  const queryArgs: GetAgentsQuery = useMemo(
+    () => ({
+      page,
+      limit,
+      searchTerm: debouncedSearch,
+      isActive,
+    }),
+    [page, limit, debouncedSearch, isActive]
+  );
 
   const { data, isLoading, isFetching, refetch } = useGetAgentsQuery(queryArgs);
-  const [mutateStatus, { isLoading: isActing }] = useApproveRejectAgentMutation();
+  const [mutateStatus, { isLoading: isActing }] =
+    useApproveRejectAgentMutation();
 
   const total = data?.meta?.total ?? 0;
-  const totalPages = data?.meta?.totalPages ?? Math.max(1, Math.ceil(total / Math.max(limit, 1)));
+  const totalPages =
+    data?.meta?.totalPages ??
+    Math.max(1, Math.ceil(total / Math.max(limit, 1)));
 
   const onApprove = async (u: IUser) => {
     try {
@@ -96,7 +123,10 @@ const ManageAgent = () => {
                   placeholder="Search name, email, phone..."
                   className="pl-8"
                   value={search}
-                  onChange={(e) => { setPage(1); setSearch(e.target.value); }}
+                  onChange={(e) => {
+                    setPage(1);
+                    setSearch(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -104,7 +134,10 @@ const ManageAgent = () => {
               <select
                 className="w-full h-9 border rounded-md px-3 bg-background"
                 value={isActive}
-                onChange={(e) => { setPage(1); setIsActive(e.target.value as any); }}
+                onChange={(e) => {
+                  setPage(1);
+                  setIsActive(e.target.value as any);
+                }}
               >
                 <option value="ALL">All Status</option>
                 <option value="PENDING">Pending</option>
@@ -116,13 +149,24 @@ const ManageAgent = () => {
               <select
                 className="w-full h-9 border rounded-md px-3 bg-background"
                 value={limit}
-                onChange={(e) => { setPage(1); setLimit(Number(e.target.value)); }}
+                onChange={(e) => {
+                  setPage(1);
+                  setLimit(Number(e.target.value));
+                }}
               >
-                {[10, 20, 50].map((n) => <option key={n} value={n}>{n}/page</option>)}
+                {[10, 20, 50].map((n) => (
+                  <option key={n} value={n}>
+                    {n}/page
+                  </option>
+                ))}
               </select>
             </div>
             <div className="md:col-span-1 flex">
-              <Button variant="ghost" className="w-full" onClick={onResetFilters}>
+              <Button
+                variant="ghost"
+                className="w-full"
+                onClick={onResetFilters}
+              >
                 Reset
               </Button>
             </div>
@@ -137,52 +181,66 @@ const ManageAgent = () => {
                   <th className="py-2.5 px-3">Email</th>
                   <th className="py-2.5 px-3">Phone</th>
                   <th className="py-2.5 px-3">Status</th>
-                  <th className="py-2.5 px-3">Wallet</th>
-                  <th className="py-2.5 px-3">Created</th>
                   <th className="py-2.5 px-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {isLoading ? (
-                  // skeleton rows
-                  Array.from({ length: 5 }).map((_, i) => (
-                    <tr key={`sk-${i}`} className="border-t">
-                      {Array.from({ length: 7 }).map((__, j) => (
-                        <td key={`sk-${i}-${j}`} className="py-3 px-3">
-                          <div className="h-4 w-24 bg-muted animate-pulse rounded" />
+                {isLoading
+                  ? // skeleton rows
+                    Array.from({ length: 5 }).map((_, i) => (
+                      <tr key={`sk-${i}`} className="border-t">
+                        {Array.from({ length: 7 }).map((__, j) => (
+                          <td key={`sk-${i}-${j}`} className="py-3 px-3">
+                            <div className="h-4 w-24 bg-muted animate-pulse rounded" />
+                          </td>
+                        ))}
+                      </tr>
+                    ))
+                  : data?.data?.map((u) => (
+                      <tr key={u._id} className="border-t">
+                        <td className="py-3 px-3">{u.name}</td>
+                        <td className="py-3 px-3">{u.email}</td>
+                        <td className="py-3 px-3">{u.phone ?? "—"}</td>
+                        <td className="py-3 px-3">
+                          <StatusBadge
+                            value={
+                              u.isActive === "BLOCKED"
+                                ? "SUSPENDED"
+                                : u.isActive
+                            }
+                          />
                         </td>
-                      ))}
-                    </tr>
-                  ))
-                ) : (
-                  data?.data?.map((u) => (
-                    <tr key={u._id} className="border-t">
-                      <td className="py-3 px-3">{u.name}</td>
-                      <td className="py-3 px-3">{u.email}</td>
-                      <td className="py-3 px-3">{u.phone ?? "—"}</td>
-                      <td className="py-3 px-3"><StatusBadge value={u.isActive} /></td>
-                      <td className="py-3 px-3">{u.wallet?.balance != null ? u.wallet.balance.toFixed(2) : "—"}</td>
-                      <td className="py-3 px-3">{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}</td>
-                      <td className="py-3 px-3">
-                        <div className="flex gap-1 justify-end">
-                          {u.isActive !== "ACTIVE" && (
-                            <Button size="sm" onClick={() => onApprove(u)} disabled={isActing}>
-                              <ShieldCheck className="h-4 w-4 mr-1" /> Approve
-                            </Button>
-                          )}
-                          {u.isActive !== "BLOCKED" && (
-                            <Button size="sm" variant="destructive" onClick={() => onReject(u)} disabled={isActing}>
-                              <Ban className="h-4 w-4 mr-1" /> Reject
-                            </Button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                        <td className="py-3 px-3">
+                          <div className="flex gap-1 justify-end">
+                            {u.isActive !== "ACTIVE" && (
+                              <Button
+                                size="sm"
+                                onClick={() => onApprove(u)}
+                                disabled={isActing}
+                              >
+                                <ShieldCheck className="h-4 w-4 mr-1" /> Approve
+                              </Button>
+                            )}
+                            {u.isActive !== "BLOCKED" && (
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => onReject(u)}
+                                disabled={isActing}
+                              >
+                                <Ban className="h-4 w-4 mr-1" /> Suspend
+                              </Button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 {!isLoading && (data?.data?.length ?? 0) === 0 && (
                   <tr className="border-t">
-                    <td className="py-6 px-3 text-center text-muted-foreground" colSpan={7}>
+                    <td
+                      className="py-6 px-3 text-center text-muted-foreground"
+                      colSpan={7}
+                    >
                       No agents found.
                     </td>
                   </tr>
