@@ -3,7 +3,7 @@
 const Dashboard = () => {
     return (
         <div>
-            Agent Dashboard
+            Admin Dashboard
         </div>
     );
 };

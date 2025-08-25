@@ -197,8 +197,8 @@ export function RegisterForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <SelectTrigger className="focus-visible:border-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400 w-full">logi
-                      <span className="absolute left-3">
+                    <SelectTrigger className="focus-visible:border-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400 w-full">
+                      <span className="left-3">
                         <Shield className="h-4 w-4 text-muted-foreground" />
                       </span>
                       <SelectValue placeholder="Select a role" />
