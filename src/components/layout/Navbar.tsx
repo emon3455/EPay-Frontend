@@ -144,14 +144,14 @@ export default function Navbar() {
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="bg-yellow-400 text-white hover:text-yellow-400 font-bold px-4 py-2 rounded-full text-sm shadow-xl hover:bg-yellow-300 transition"
+              className="bg-yellow-400 text-white font-bold px-4 py-2 rounded-full text-sm shadow-xl  transition"
             >
               Logout
             </Button>
           ) : (
             <Button
               asChild
-              className="bg-yellow-400 text-black font-bold px-4 py-2 rounded-full text-sm shadow-xl hover:bg-yellow-300 transition"
+              className="font-bold px-4 py-2 rounded-full text-sm shadow-xl transition"
             >
               <Link to="/login">Login</Link>
             </Button>
