@@ -45,9 +45,10 @@ export function LoginForm({
   const [showPassword, setShowPassword] = React.useState(false);
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    const formData = {email: values.email as string, password: values.password as string};
     try {
       // 1) server sets HttpOnly cookies here
-      await login(values).unwrap();
+      await login(formData).unwrap();
       toast.success("Logged in successfully");
 
       // 2) immediately confirm session & get role
